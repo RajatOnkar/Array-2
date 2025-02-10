@@ -2,11 +2,11 @@
 // Time Complexity :
 # Problem 1: O(n) are we parse through the entire array
 # Problem 2: O(n/2) ~ O(n) are we do pair comparisons
-# Problem 3:
+# Problem 3: O(m*n) for the entire matrix
 // Space Complexity :
 # Problem 1: O(n) Worst case we will have to return close to all elements
 # Problem 2: O(n) to store the array
-# Problem 3: 
+# Problem 3: O(m*n) as we change elements of the matrix ~ O(1) auxillary space
 // Did this code successfully run on Leetcode :
 Yes the code ran successfully.
 // Any problem you faced while coding this :
@@ -50,8 +50,11 @@ class Solution(object):
  
 class Solution(object):
     def minmaxNumber(self, nums):
+        # Even length of array
         n = len(nums)
-        if nums == 0 or len(nums) == 0: return 0,0
+        # Odd length of array
+        if len(nums) / 2 != 0: m = 1 
+        if nums == 0 or len(nums) == 0: return [-1,-1]
         min_num = 0
         max_num = 0
         for i in range(n-1):
@@ -61,7 +64,13 @@ class Solution(object):
             else:
                 min_num = min(min, nums[i+1])
                 max_num = max(max_num, nums[i])
-        return min_num, max_num
+        # Check the last element if the array is odd length        
+        if(m):
+            if nums[n-1] > max_num:
+                max_num = nums[n-1]
+            if nums[n-1] < min_num:
+                min_num = nums[n-1]
+        return [min_num, max_num]
 
 ## Problem 3 - Game of Life
 # Perfrom in place functions, if the cell is updating from 0 to 1 then we assign it '2' and if it
